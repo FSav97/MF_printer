@@ -230,7 +230,7 @@
 
 // Save and restore temperature and fan speed on tool-change.
 // Set standby for the unselected tool with M104/106/109 T...
-#if ENABLED(SINGLENOZZLE)
+#ifdef SINGLENOZZLE
   //#define SINGLENOZZLE_STANDBY_TEMP
   //#define SINGLENOZZLE_STANDBY_FAN
 #endif
@@ -253,7 +253,7 @@
  * Can be combined with SWITCHING_EXTRUDER.
  */
 //#define SWITCHING_NOZZLE
-#if ENABLED(SWITCHING_NOZZLE)
+#ifdef SWITCHING_NOZZLE
   #define SWITCHING_NOZZLE_SERVO_NR 0
   //#define SWITCHING_NOZZLE_E1_SERVO_NR 1          // If two servos are used, the index of the second
   #define SWITCHING_NOZZLE_SERVO_ANGLES { 0, 90 }   // A pair of angles for { E0, E1 }.
@@ -360,7 +360,7 @@
  *   - Enable DIRECT_MIXING_IN_G1 for M165 and mixing in G1 (from Pia Taubert's reference implementation).
  */
 //#define MIXING_EXTRUDER
-#if ENABLED(MIXING_EXTRUDER)
+#ifdef MIXING_EXTRUDER
   #define MIXING_STEPPERS 2        // Number of steppers in your mixing extruder
   #define MIXING_VIRTUAL_TOOLS 16  // Use the Virtual Tool method with M163 and M164
   //#define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
@@ -408,7 +408,7 @@
 #define PSU_CONTROL
 //#define PSU_NAME "Power Supply"
 
-#if ENABLED(PSU_CONTROL)
+#ifdef PSU_CONTROL
   //#define MKS_PWC                 // Using the MKS PWC add-on
   //#define PS_OFF_CONFIRM          // Confirm dialog when power off
   //#define PS_OFF_SOUND            // Beep 1s when power off
@@ -434,7 +434,7 @@
   //#define PSU_POWEROFF_GCODE "M355 S0"  // G-code to run before power-off (e.g., case light off)
 
   //#define AUTO_POWER_CONTROL      // Enable automatic control of the PS_ON pin
-  #if ENABLED(AUTO_POWER_CONTROL)
+  #ifdef AUTO_POWER_CONTROL
     #define AUTO_POWER_FANS           // Turn on PSU for fans
     #define AUTO_POWER_E_FANS         // Turn on PSU for E Fans
     #define AUTO_POWER_CONTROLLERFAN  // Turn on PSU for Controller Fan
@@ -694,12 +694,12 @@
 #define PID_MAX  255      // Limit hotend current while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1     0.95   // Smoothing factor within any PID loop
 
-#if ENABLED(PIDTEMP)
+#ifdef PIDTEMP
   //#define PID_DEBUG             // Print PID debug data to the serial port. Use 'M303 D' to toggle activation.
   //#define PID_PARAMS_PER_HOTEND // Use separate PID parameters for each extruder (useful for mismatched extruders)
                                   // Set/get with G-code: M301 E[extruder number, 0-2]
 
-  #if ENABLED(PID_PARAMS_PER_HOTEND)
+  #ifdef PID_PARAMS_PER_HOTEND
     // Specify up to one value per hotend here, according to your setup.
     // If there are fewer values, the last one applies to the remaining hotends.
     #define DEFAULT_Kp_LIST {  22.20,  22.20 }
@@ -722,7 +722,7 @@
  * and PID_FAN_SCALING. Enable MPC_AUTOTUNE and use M306 T to autotune the model.
  * @section mpc temp
  */
-#if ENABLED(MPCTEMP)
+#ifdef MPCTEMP
   #define MPC_AUTOTUNE                                // Include a method to do MPC auto-tuning (~6.3K bytes of flash)
   #if ENABLED(MPC_AUTOTUNE)
     //#define MPC_AUTOTUNE_DEBUG                      // Enable MPC debug logging (~870 bytes of flash)
@@ -793,7 +793,7 @@
  */
 #define PIDTEMPBED
 
-#if ENABLED(PIDTEMPBED)
+#ifdef PIDTEMPBED
   //#define MIN_BED_POWER 0
   //#define PID_BED_DEBUG // Print Bed PID debug data to the serial port.
 
@@ -837,7 +837,7 @@
  *   HIGH = Cooling = Relay in "Normal" state
  */
 //#define PELTIER_BED
-#if ENABLED(PELTIER_BED)
+#ifdef PELTIER_BED
   #define PELTIER_DIR_PIN           -1  // Relay control pin for Peltier
   #define PELTIER_DIR_HEAT_STATE   LOW  // The relay pin state that causes the Peltier to heat
 #endif
@@ -875,7 +875,7 @@
  */
 #define MAX_CHAMBER_POWER 255 // limits duty cycle to chamber heater; 255=full current
 
-#if ENABLED(PIDTEMPCHAMBER)
+#ifdef PIDTEMPCHAMBER
   #define MIN_CHAMBER_POWER 0
   //#define PID_CHAMBER_DEBUG // Print Chamber PID debug data to the serial port.
 
@@ -982,7 +982,7 @@
 
 // Enable for Polargraph Kinematics
 //#define POLARGRAPH
-#if ENABLED(POLARGRAPH)
+#ifdef POLARGRAPH
   #define POLARGRAPH_MAX_BELT_LEN  1035.0 // (mm) Belt length at full extension. Override with M665 H.
   #define DEFAULT_SEGMENTS_PER_SECOND 5   // Move segmentation based on duration
   #define PEN_UP_DOWN_MENU                // Add "Pen Up" and "Pen Down" to the MarlinUI menu
@@ -992,7 +992,7 @@
 
 // Enable for DELTA kinematics and configure below
 //#define DELTA
-#if ENABLED(DELTA)
+#ifdef DELTA
 
   // Make delta curves from many straight lines (linear interpolation).
   // This is a trade-off between visible corners (not enough segments)
@@ -1093,7 +1093,7 @@
 
 // Enable for TPARA kinematics and configure below
 //#define AXEL_TPARA
-#if ENABLED(AXEL_TPARA)
+#ifdef AXEL_TPARA
   #define DEBUG_TPARA_KINEMATICS
   #define DEFAULT_SEGMENTS_PER_SECOND 200
 
@@ -1151,7 +1151,7 @@
  * This shouldn't be a problem for cutting/milling operations.
  */
 //#define POLAR
-#if ENABLED(POLAR)
+#ifdef POLAR
   #define DEFAULT_SEGMENTS_PER_SECOND 180   // If movement is choppy try lowering this value
   #define PRINTABLE_RADIUS 82.0f            // (mm) Maximum travel of X axis
 
@@ -1174,7 +1174,7 @@
 
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
-#if DISABLED(ENDSTOPPULLUPS)
+#ifndef ENDSTOPPULLUPS
   // Disable ENDSTOPPULLUPS to set pullups individually
   //#define ENDSTOPPULLUP_XMIN
   //#define ENDSTOPPULLUP_YMIN
@@ -1199,7 +1199,7 @@
 
 // Enable pulldown for all endstops to prevent a floating state
 //#define ENDSTOPPULLDOWNS
-#if DISABLED(ENDSTOPPULLDOWNS)
+#ifndef ENDSTOPPULLDOWNS
   // Disable ENDSTOPPULLDOWNS to set pulldowns individually
   //#define ENDSTOPPULLDOWN_XMIN
   //#define ENDSTOPPULLDOWN_YMIN
@@ -1307,7 +1307,7 @@
 #define DEFAULT_MAX_FEEDRATE          { 300, 300, 50, 100 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
-#if ENABLED(LIMITED_MAX_FR_EDITING)
+#ifdef LIMITED_MAX_FR_EDITING
   #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50 } // ...or, set your own edit limits
 #endif
 
@@ -1345,7 +1345,7 @@
  * value set here, it may happen instantaneously.
  */
 //#define CLASSIC_JERK
-#if ENABLED(CLASSIC_JERK)
+#ifdef CLASSIC_JERK
   #define DEFAULT_XJERK 10.0
   #define DEFAULT_YJERK 10.0
   #define DEFAULT_ZJERK  0.3
@@ -1372,7 +1372,7 @@
  *   https://reprap.org/forum/read.php?1,739819
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
-#if DISABLED(CLASSIC_JERK)
+#ifndef CLASSIC_JERK
   #define JUNCTION_DEVIATION_MM 0.020 // (mm) Distance from real junction edge
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
                                       // for small segments (< 1mm) with large junction angles (> 135°).
